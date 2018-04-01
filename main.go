@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"log"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -50,10 +50,10 @@ type eventType struct {
 func eventsHandler(c *gin.Context) {
 	var req event
 	if err := json.NewDecoder(c.Request.Body).Decode(&req); err != nil {
-		log.Println("event handler error:", err)
+		fmt.Println("event handler error:", err)
 		return
 	}
-	log.Printf("event received: %+v\n", req)
+	fmt.Printf("event received: %+v\n", req)
 
 	if req.Challenge != "" {
 		c.JSON(http.StatusOK, struct {
