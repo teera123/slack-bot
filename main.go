@@ -1,16 +1,23 @@
 package main
 
 import (
-	"os"
 	"context"
+	"encoding/json"
+	"log"
 	"net/http"
+	"os"
 
-	"github.com/gin-gonic/gin"
 	"github.com/BeepBoopHQ/go-slackbot"
+	"github.com/gin-gonic/gin"
 	"github.com/nlopes/slack"
 )
 
-func main()  {
+func main() {
+	// heroku requires the process to bind port or it is killed
+	r := gin.New()
+	r.POST("/events", eventsHandler)
+	r.Run(":" + os.Getenv("PORT"))
+
 	bot := slackbot.New(os.Getenv("SLACK_TOKEN"))
 
 	toMe := bot.Messages(slackbot.DirectMessage, slackbot.DirectMention).Subrouter()
@@ -18,15 +25,23 @@ func main()  {
 
 	bot.Hear("(?i)(หวัดดี|ดีจ้า|สวัสดี).*").MessageHandler(helloHandler)
 	bot.Run()
-
-	// heroku requires the process to bind port or it is killed
-	r := gin.New()
-	r.POST("/heroku", herokuHandler)
-	r.Run(":" + os.Getenv("PORT"))
 }
 
-func herokuHandler(c *gin.Context) {
-	c.JSON(http.StatusOK, nil)
+func eventsHandler(c *gin.Context) {
+	var req struct {
+		Token     string `json:"token"`
+		Challenge string `json:"challenge"`
+		Type      string `json:"type"`
+	}
+	if err := json.NewDecoder(c.Request.Body).Decode(&req); err != nil {
+		log.Println("event handler error:", err)
+		return
+	}
+
+	res := struct {
+		Challenge string `json:"challenge"`
+	}{req.Challenge}
+	c.JSON(http.StatusOK, res)
 }
 
 func helloHandler(_ context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
