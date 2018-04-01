@@ -13,18 +13,18 @@ import (
 )
 
 func main() {
-	// heroku requires the process to bind port or it is killed
-	r := gin.New()
-	r.POST("/events", eventsHandler)
-	r.Run(":" + os.Getenv("PORT"))
-
 	bot := slackbot.New(os.Getenv("SLACK_TOKEN"))
 
 	toMe := bot.Messages(slackbot.DirectMessage, slackbot.DirectMention).Subrouter()
 	toMe.Hear("(?i)(หวัดดี|ดีจ้า|สวัสดี).*").MessageHandler(helloHandler)
 
 	bot.Hear("(?i)(หวัดดี|ดีจ้า|สวัสดี).*").MessageHandler(helloHandler)
-	bot.Run()
+	go bot.Run()
+
+	// heroku requires the process to bind port or it is killed
+	r := gin.New()
+	r.POST("/events", eventsHandler)
+	r.Run(":" + os.Getenv("PORT"))
 }
 
 func eventsHandler(c *gin.Context) {
