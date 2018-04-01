@@ -37,6 +37,7 @@ func eventsHandler(c *gin.Context) {
 		log.Println("event handler error:", err)
 		return
 	}
+	log.Printf("event received: %+v\n", req)
 
 	res := struct {
 		Challenge string `json:"challenge"`
