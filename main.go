@@ -43,7 +43,7 @@ type eventType struct {
 	Type      string  `json:"type"`
 	EventTS   float64 `json:"event_ts"`
 	User      string  `json:"user"`
-	Timestamp float64 `json:"ts"`
+	Timestamp string  `json:"ts"`
 	Item      string  `json:"item"`
 }
 
