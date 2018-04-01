@@ -1,0 +1,25 @@
+{
+	"comment": "",
+	"heroku": {
+		"goVersion": "go1.9",
+		"install": [
+			"./..."
+		]
+	},
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "/2XjtIKAKznkQhMzmpZKZA4c/C0=",
+			"path": "github.com/BeepBoopHQ/go-slackbot",
+			"revision": "58027c0d5238a0604305652ea526b3c18a7cead1",
+			"revisionTime": "2016-01-19T06:39:52Z"
+		},
+		{
+			"checksumSHA1": "EXe529YfoA2X+6mIsnCSiErXzOs=",
+			"path": "github.com/nlopes/slack",
+			"revision": "a5c6ae1924074524898865255ea8418a5677cb63",
+			"revisionTime": "2018-03-06T13:34:53Z"
+		}
+	],
+	"rootPath": "go-slack-bot"
+}
