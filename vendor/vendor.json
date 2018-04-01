@@ -15,10 +15,22 @@
 			"revisionTime": "2016-01-19T06:39:52Z"
 		},
 		{
+			"checksumSHA1": "+1LsRRZKa06yTFg/Tu5NCsyHxOA=",
+			"path": "github.com/gorilla/websocket",
+			"revision": "eb925808374e5ca90c83401a40d711dc08c0c0f6",
+			"revisionTime": "2018-03-06T18:15:48Z"
+		},
+		{
 			"checksumSHA1": "EXe529YfoA2X+6mIsnCSiErXzOs=",
 			"path": "github.com/nlopes/slack",
 			"revision": "a5c6ae1924074524898865255ea8418a5677cb63",
 			"revisionTime": "2018-03-06T13:34:53Z"
+		},
+		{
+			"checksumSHA1": "dr5+PfIRzXeN+l1VG+s0lea9qz8=",
+			"path": "golang.org/x/net/context",
+			"revision": "66aacef3dd8a676686c7ae3716979581e8b03c47",
+			"revisionTime": "2016-09-14T00:11:54Z"
 		}
 	],
 	"rootPath": "go-slack-bot"
