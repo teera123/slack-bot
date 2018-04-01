@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"math/rand"
 	"os"
+	"time"
 
 	"github.com/BeepBoopHQ/go-slackbot"
 	"github.com/gin-gonic/gin"
@@ -10,6 +12,8 @@ import (
 )
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
+
 	bot := slackbot.New(os.Getenv("SLACK_TOKEN"))
 
 	//toMe := bot.Messages(slackbot.DirectMessage, slackbot.DirectMention).Subrouter()
@@ -25,5 +29,16 @@ func main() {
 }
 
 func helloHandler(_ context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
-	bot.Reply(evt, "สวัสดีค่ะ ヾ（〃＾∇＾）ﾉ♪", slackbot.WithTyping)
+	msg := []string{
+		"สวัสดีค่ะ ヾ（〃＾∇＾）ﾉ♪",
+		"เราชื่อพิมฐายินดีที่ได้รู้จัก ヽ(;^o^ヽ)",
+		"หวัดดีจ้าาาา",
+		"สวัสดีค่ะ เราชื่อพิมฐา ฝากเนื้อฝากตัวด้วยนะคะ 。（＞ω＜。）",
+	}
+
+	bot.Reply(evt, msg[random(0, len(msg))], slackbot.WithTyping)
+}
+
+func random(min, max int) int {
+	return min + rand.Intn(max-min)
 }
