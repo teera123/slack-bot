@@ -40,11 +40,11 @@ type event struct {
 }
 
 type eventType struct {
-	Type      string `json:"type"`
-	EventTS   string `json:"event_ts"`
-	User      string `json:"user"`
-	Timestamp string `json:"ts"`
-	Item      string `json:"item"`
+	Type      string  `json:"type"`
+	EventTS   float64 `json:"event_ts"`
+	User      string  `json:"user"`
+	Timestamp float64 `json:"ts"`
+	Item      string  `json:"item"`
 }
 
 func eventsHandler(c *gin.Context) {
@@ -53,6 +53,7 @@ func eventsHandler(c *gin.Context) {
 		fmt.Println("event handler error:", err)
 		return
 	}
+	defer c.Request.Body.Close()
 	fmt.Printf("event received: %+v\n", req)
 
 	if req.Challenge != "" {
