@@ -27,22 +27,41 @@ func main() {
 	r.Run(":" + os.Getenv("PORT"))
 }
 
+type event struct {
+	Token      string    `json:"token"`
+	TeamID     string    `json:"team_id"`
+	APIAppID   string    `json:"api_app_id"`
+	Event      eventType `json:"event"`
+	Type       string    `json:"type"`
+	AuthedUser []string  `json:"authed_user"`
+	EventID    string    `json:"event_id"`
+	EventTime  int       `json:"event_time"`
+	Challenge  string    `json:"challenge"`
+}
+
+type eventType struct {
+	Type      string `json:"type"`
+	EventTS   string `json:"event_ts"`
+	User      string `json:"user"`
+	Timestamp string `json:"ts"`
+	Item      string `json:"item"`
+}
+
 func eventsHandler(c *gin.Context) {
-	var req struct {
-		Token     string `json:"token"`
-		Challenge string `json:"challenge"`
-		Type      string `json:"type"`
-	}
+	var req event
 	if err := json.NewDecoder(c.Request.Body).Decode(&req); err != nil {
 		log.Println("event handler error:", err)
 		return
 	}
 	log.Printf("event received: %+v\n", req)
 
-	res := struct {
-		Challenge string `json:"challenge"`
-	}{req.Challenge}
-	c.JSON(http.StatusOK, res)
+	if req.Challenge != "" {
+		c.JSON(http.StatusOK, struct {
+			Challenge string `json:"challenge"`
+		}{req.Challenge})
+	}
+
+	c.JSON(http.StatusOK, nil)
 }
 
 func helloHandler(_ context.Context, bot *slackbot.Bot, evt *slack.MessageEvent) {
