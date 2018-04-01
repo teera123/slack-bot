@@ -15,6 +15,12 @@
 			"revisionTime": "2016-01-19T06:39:52Z"
 		},
 		{
+			"checksumSHA1": "GSNyixd8GMmHB4KSK09d53CWcnw=",
+			"path": "github.com/gin-gonic/gin",
+			"revision": "b1ee49de8c80ea72acf019315d3dffc0ce6e06ff",
+			"revisionTime": "2017-09-08T00:56:56Z"
+		},
+		{
 			"checksumSHA1": "+1LsRRZKa06yTFg/Tu5NCsyHxOA=",
 			"path": "github.com/gorilla/websocket",
 			"revision": "eb925808374e5ca90c83401a40d711dc08c0c0f6",
